@@ -10,8 +10,8 @@ POST	/api/delete_siswa			controllers.Application.delete()
 POST	/api/list_siswa				controllers.Application.list()
 
 POST	/api/insert_kelas			controllers.ApplicationKelas.insert()
-GET 	/api/delete_kelas			controllers.ApplicationKelas.delete()
-GET		/api/edit_kelas 			controllers.ApplicationKelas.edit()
+POST 	/api/delete_kelas			controllers.ApplicationKelas.delete()
+POST	/api/edit_kelas 			controllers.ApplicationKelas.edit()
 POST 	/api/list_kelas 			controllers.ApplicationKelas.list()
 
 # Map static resources from the /public folder to the /assets URL path
