@@ -57,4 +57,10 @@ public class ApplicationKelas extends Controller{
 		return ok(JsonHandler.getSuitableResponse(Json.toJson(listKelas), true));
 	}
 
+	public static Result addSiswa(){
+		return TODO;
+	}
+	public static Result removeSiswa(){
+		return TODO;
+	}
 }
