@@ -8,7 +8,7 @@ import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
 @Entity
-public class User extends Model {
+public class Account extends Model {
 	
 	@Id
 	public Long id;
@@ -19,5 +19,5 @@ public class User extends Model {
 	@Required
 	public String password;
 	
-	public static Finder<Long, User> finder = new Finder<Long,User>(Long.class, User.class);
+	public static Finder<Long, Account> finder = new Finder<Long,Account>(Long.class, Account.class);
 }
