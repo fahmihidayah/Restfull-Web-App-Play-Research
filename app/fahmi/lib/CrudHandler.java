@@ -55,4 +55,6 @@ public class CrudHandler<T extends Model> {
     		return Controller.ok(JsonHandler.getSuitableResponse("success delete data", true));
     	}
 	}
+	
+	
 }

@@ -2,6 +2,8 @@ package models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import play.data.validation.Constraints.Required;
@@ -11,6 +13,7 @@ import play.db.ebean.Model;
 public class Account extends Model {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long id;
 	
 	@Required

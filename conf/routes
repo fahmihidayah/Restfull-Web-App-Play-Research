@@ -17,7 +17,7 @@ POST 	/api/list_kelas 			controllers.ApplicationKelas.list()
 POST	/api/add_siswa				controllers.ApplicationKelas.addSiswa()
 POST	/api/remove_siswa			controllers.ApplicationKelas.removeSiswa()
 
-POST	/api/insert_guru			controllers.ApplicationGuru
+POST	/api/insert_guru			controllers.ApplicationGuru.insert()
 POST 	/api/delete_guru			controllers.ApplicationGuru.delete()
 POST	/api/edit_guru				controllers.ApplicationGuru.edit()
 POST 	/api/list_guru 				controllers.ApplicationGuru.list()

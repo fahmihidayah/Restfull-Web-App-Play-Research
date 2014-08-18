@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 @Entity
-public class Kelas extends Model{
+public class Kelas extends Model {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long idKelas;

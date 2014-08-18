@@ -1,5 +1,6 @@
 package models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -17,7 +18,7 @@ public class Guru extends Model{
 	@Required
 	public String phone;
 	public String email;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	public Account account;
 	
 	public static Finder<String, Guru> finder = new Finder<String, Guru>(String.class, Guru.class);
