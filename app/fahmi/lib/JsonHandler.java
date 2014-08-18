@@ -10,28 +10,31 @@ public class JsonHandler {
 
     public static ObjectNode getSuitableResponse(Object data, boolean success){
     	ObjectNode node = (success? getSuccessObjectNode(): getFailureObjectNode());
-    	if(data instanceof JsonNode){
-    		node.put("data", (JsonNode) data);
+    	if(data instanceof Form){
+    		node.put("data", getErrorMessage(((Form) data)));
+    	}
+    	else if( data instanceof String){
+    		node.put("data", (String) data);
     	}
     	else {
-    		node.put("data", (String) data);
+    		node.put("data", Json.toJson(data));
     	}
     	return node;
     }
     
-    public static ObjectNode getSuccessObjectNode(){
+    private static ObjectNode getSuccessObjectNode(){
     	ObjectNode node = Json.newObject();
     	node.put("status", "200");
     	node.put("message", "success");
     	return node;
     }
-    public static ObjectNode getFailureObjectNode(){
+    private static ObjectNode getFailureObjectNode(){
     	ObjectNode node = Json.newObject();
     	node.put("status", "404");
     	node.put("message", "error");
     	return node;
     }
-    public static String getErrorMessage(Form errorForm){
+    private static String getErrorMessage(Form errorForm){
     	String error = errorForm.errorsAsJson().toString();
     	error = error.replace("{", "");
     	error = error.replace("]", "");

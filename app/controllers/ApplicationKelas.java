@@ -17,7 +17,7 @@ public class ApplicationKelas extends Controller{
 	public static Result insert(){
 		Form<Kelas> frmKelas = Form.form(Kelas.class).bindFromRequest();
 		if(frmKelas.hasErrors()){
-			return badRequest(JsonHandler.getSuitableResponse(JsonHandler.getErrorMessage(frmKelas), false));
+			return badRequest(JsonHandler.getSuitableResponse(frmKelas, false));
 		}
 		else {
 			Kelas kelas = frmKelas.get();
@@ -44,7 +44,7 @@ public class ApplicationKelas extends Controller{
 	public static Result edit(){
 		Form<Kelas> frmKelas = Form.form(Kelas.class).bindFromRequest();
 		if(frmKelas.hasErrors()){
-			return badRequest(JsonHandler.getSuitableResponse(JsonHandler.getErrorMessage(frmKelas), false));
+			return badRequest(JsonHandler.getSuitableResponse(frmKelas, false));
 		}
 		else {
 			Kelas kelas = frmKelas.get();

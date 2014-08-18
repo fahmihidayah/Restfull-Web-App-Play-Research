@@ -9,6 +9,7 @@ import javax.persistence.criteria.From;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import fahmi.lib.CrudHandler;
 import fahmi.lib.JsonHandler;
 import models.Siswa;
 import play.*;
@@ -18,52 +19,27 @@ import play.mvc.*;
 import views.html.index;
 
 public class Application extends Controller {
-
+	
+	public static Form<Siswa> frmSiswa = Form.form(Siswa.class);
+	public static CrudHandler<Siswa> crudHandler = new CrudHandler<Siswa>();
+	
     public static Result index() {
         return ok(index.render("Your new application is ready."));
     }
     
     public static Result insert(){
-    	Form<Siswa> frmSiswa = Form.form(Siswa.class).bindFromRequest();
-    	if(frmSiswa.hasErrors()){
-    		return ok(JsonHandler.getSuitableResponse(JsonHandler.getErrorMessage(frmSiswa), false));
-    	}else {
-    		Siswa siswa = frmSiswa.get();
-    		siswa.save();
-    		return ok(JsonHandler.getSuitableResponse(Json.toJson(siswa), true));
-    	}
+    	return crudHandler.create(frmSiswa.bindFromRequest());
     }
     
     public static Result list(){
-    	List<Siswa> listSiswa = Siswa.finder.all();
-    	return ok(JsonHandler.getSuitableResponse(Json.toJson(listSiswa), true));
+    	return crudHandler.read(Siswa.finder);
     }
-    
-    
     
     public static Result edit(){
-    	Form<Siswa> frmSiswa = Form.form(Siswa.class).bindFromRequest();
-    	if(frmSiswa.hasErrors()){
-    		return ok(JsonHandler.getSuitableResponse(JsonHandler.getErrorMessage(frmSiswa), false));
-    	}else {
-    		Siswa siswa = frmSiswa.get();
-    		siswa.update();
-    		return ok(JsonHandler.getSuitableResponse(Json.toJson(siswa), true));
-    	}
+    	return crudHandler.update(frmSiswa.bindFromRequest());
     }
     public static Result delete(){
-    	Form<Siswa> frmSiswa = Form.form(Siswa.class).bindFromRequest();
-    	String nim = frmSiswa.data().get("nim");
-    	if(nim == null){
-    		return badRequest(JsonHandler.getSuitableResponse("require nim", false));
-    	}else {
-    		Siswa siswa = Siswa.finder.byId(nim);
-    		if(siswa == null){
-    			return badRequest(JsonHandler.getSuitableResponse("data not found", false));
-    		}
-    		siswa.delete();
-    		return ok(JsonHandler.getSuitableResponse("success delete data", true));
-    	}
+    	
+    	return crudHandler.delete(frmSiswa.bindFromRequest(), "nim", Siswa.finder);
     }
-    
 }
