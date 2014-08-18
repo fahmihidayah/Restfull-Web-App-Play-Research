@@ -11,9 +11,9 @@ create table kelas (
 
 create table siswa (
   nim                       varchar(255) not null,
-  kelas_id_kelas            bigint not null,
   name                      varchar(255),
   address                   varchar(255),
+  kelas_id_kelas            bigint,
   constraint pk_siswa primary key (nim))
 ;
 

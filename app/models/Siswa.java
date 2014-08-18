@@ -1,7 +1,12 @@
 package models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
@@ -18,5 +23,8 @@ public class Siswa extends Model {
 	@Required
 	public String address;
 	
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.ALL)
+	public Kelas kelas;
 	public static Finder<String, Siswa> finder = new Finder<String, Siswa>(String.class, Siswa.class);
 }
