@@ -14,6 +14,7 @@ public class Account extends Model {
 	public Long id;
 	
 	@Required
+	@Column(unique = true)
 	public String userName;
 	
 	@Required
