@@ -107,4 +107,8 @@ public class User extends Model {
 	public static User findByEmailAddressAndPassword(String userName, String password){
 		return finder.where().eq("userName", userName).eq("shaPassword", getSha512(password)).findUnique();
 	}
+	
+	public static User findByUserName(String userName){
+		return finder.where().eq("userName", userName).findUnique();
+	}
 }

@@ -31,6 +31,9 @@ public class SecurityController extends Controller{
     	if(user == null){
     		return badRequest(JsonHandler.getSuitableResponse("user not found", false));
     	}
+    	else if(user.authToken != null){
+    		return badRequest(JsonHandler.getSuitableResponse("user in used", false));
+    	}
     	else {
     		String authToken = user.createToken();
     		response().setCookie(AUTH_TOKEN, authToken);
@@ -40,11 +43,25 @@ public class SecurityController extends Controller{
     	}
     }
     
+    public static Result logout(){
+    	Form<Login> formLogin = Form.form(Login.class).bindFromRequest();
+    	String authToken = formLogin.data().get("authToken");
+    	if(authToken == null){
+    		return badRequest(JsonHandler.getSuitableResponse("data not found", false));
+    	}
+    	
+    	User user = User.findByAuthToken(authToken);
+    	user.deleteAuthToken();
+    	return ok(JsonHandler.getSuitableResponse("log out", true));
+    }
+    
     public static class Login {
     	@Required
     	public String userName;
     	@Required
     	public String password;
+    	
+    	public String authToken;
     	
     }
 }

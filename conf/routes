@@ -25,5 +25,6 @@ POST 	/api/list_guru 				controllers.ApplicationGuru.list()
 POST 	/api/insert_user			controllers.ApplicationAccount.insert()
 
 POST	/api/login					controllers.SecurityController.login()
+POST	/api/logout 				controllers.SecurityController.logout()
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
