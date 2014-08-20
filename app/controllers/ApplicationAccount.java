@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import fahmi.lib.CrudHandler;
 import fahmi.lib.JsonHandler;
-import models.Account;
+import models.User;
 import models.Siswa;
 import play.data.Form;
 import play.libs.Json;
@@ -15,14 +15,14 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.*;
 public class ApplicationAccount extends Controller{
-	public static Form<Account> frmAccount = Form.form(Account.class);
-	public static CrudHandler<Account> crudHandler = new CrudHandler<Account>();
+	public static Form<User> frmAccount = Form.form(User.class);
+	public static CrudHandler<User> crudHandler = new CrudHandler<User>();
 	public static Result insert(){
 		return crudHandler.create(frmAccount.bindFromRequest());
 	}
 	
 	public static Result delete(){
-		return crudHandler.delete(frmAccount.bindFromRequest(), "id", Account.finder);
+		return crudHandler.delete(frmAccount.bindFromRequest(), "id", User.finder);
 	}
 	
 	public static Result edit(){
@@ -30,7 +30,7 @@ public class ApplicationAccount extends Controller{
 	}
 	
 	public static Result list(){
-		return crudHandler.read(Account.finder);
+		return crudHandler.read(User.finder);
 	}
 	
 	public static Result addAccountToGuru(){

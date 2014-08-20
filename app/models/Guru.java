@@ -19,7 +19,7 @@ public class Guru extends Model{
 	public String phone;
 	public String email;
 	@OneToOne(cascade = CascadeType.ALL)
-	public Account account;
+	public User account;
 	
 	public static Finder<String, Guru> finder = new Finder<String, Guru>(String.class, Guru.class);
 }

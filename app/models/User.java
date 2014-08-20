@@ -10,7 +10,7 @@ import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
 @Entity
-public class Account extends Model {
+public class User extends Model {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,5 +23,5 @@ public class Account extends Model {
 	@Required
 	public String password;
 	
-	public static Finder<Long, Account> finder = new Finder<Long,Account>(Long.class, Account.class);
+	public static Finder<Long, User> finder = new Finder<Long,User>(Long.class, User.class);
 }
