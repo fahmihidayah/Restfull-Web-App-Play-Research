@@ -40,8 +40,8 @@ public class User extends Model {
 //	@Required
 	public String password ;
 	
-	@Column(nullable = false)
-	public Date dateCreation;
+//	@Column(nullable = false)
+//	public Date dateCreation = new Date();
 
 	public static Finder<Long, User> finder = new Finder<Long, User>(
 			Long.class, User.class);
@@ -57,7 +57,6 @@ public class User extends Model {
 		super();
 		this.userName = userName;
 		this.setPassword(password);
-		this.dateCreation = new Date();
 	}
 
 	public String getPassword() {
@@ -105,7 +104,7 @@ public class User extends Model {
 		}
 	}
 	
-	public static User findByEmailAddressAndPassword(String emailAddress, String password){
-		return finder.where().eq("emailAddress", emailAddress).eq("shaPassword", getSha512(password)).findUnique();
+	public static User findByEmailAddressAndPassword(String userName, String password){
+		return finder.where().eq("userName", userName).eq("shaPassword", getSha512(password)).findUnique();
 	}
 }

@@ -23,7 +23,6 @@ create table user (
   user_name                 varchar(256) not null,
   sha_password              varbinary(64) not null,
   password                  varchar(255),
-  date_creation             timestamp not null,
   constraint uq_user_user_name unique (user_name),
   constraint pk_user primary key (id))
 ;
