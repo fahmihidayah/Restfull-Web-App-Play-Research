@@ -16,7 +16,7 @@ import play.mvc.Result;
 import play.*;
 public class ApplicationMataPelajaran extends Controller{
 	public static Form<MataPelajaran> frmMataPelajaran = Form.form(MataPelajaran.class);
-	public static CrudHandler<MataPelajaran> crudHandler = new CrudHandler<MataPelajaran>();
+	public static CrudHandler<MataPelajaran> crudHandler = new CrudHandler<MataPelajaran>(true);
 	public static Result insert(){
 		return crudHandler.create(frmMataPelajaran.bindFromRequest());
 	}
@@ -30,7 +30,7 @@ public class ApplicationMataPelajaran extends Controller{
 	}
 	
 	public static Result list(){
-		return crudHandler.read(MataPelajaran.finder);
+		return crudHandler.read(frmMataPelajaran.bindFromRequest(), MataPelajaran.finder);
 	}
 
 }

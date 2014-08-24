@@ -3,26 +3,32 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
-POST	/api/insert_siswa			controllers.Application.insert()
-POST	/api/edit_siswa				controllers.Application.edit()
-POST	/api/delete_siswa			controllers.Application.delete()
-POST	/api/list_siswa				controllers.Application.list()
+GET     /                           controllers.ApplicationSiswa.index()
 
-POST	/api/insert_kelas			controllers.ApplicationKelas.insert()
-POST 	/api/delete_kelas			controllers.ApplicationKelas.delete()
-POST	/api/edit_kelas 			controllers.ApplicationKelas.edit()
-POST 	/api/list_kelas 			controllers.ApplicationKelas.list()
+POST	/api/insert/siswa			controllers.ApplicationSiswa.insert()
+POST	/api/edit/siswa				controllers.ApplicationSiswa.edit()
+POST	/api/delete/siswa			controllers.ApplicationSiswa.delete()
+POST	/api/list/siswa				controllers.ApplicationSiswa.list()
 
-POST	/api/add_siswa				controllers.ApplicationKelas.addSiswa()
-POST	/api/remove_siswa			controllers.ApplicationKelas.removeSiswa()
+POST	/api/insert/kelas			controllers.ApplicationKelas.insert()
+POST 	/api/delete/kelas			controllers.ApplicationKelas.delete()
+POST	/api/edit/kelas 			controllers.ApplicationKelas.edit()
+POST 	/api/list/kelas 			controllers.ApplicationKelas.list()
 
-POST	/api/insert_guru			controllers.ApplicationGuru.insert()
-POST 	/api/delete_guru			controllers.ApplicationGuru.delete()
-POST	/api/edit_guru				controllers.ApplicationGuru.edit()
-POST 	/api/list_guru 				controllers.ApplicationGuru.list()
+POST	/api/add/siswa				controllers.ApplicationKelas.addSiswa()
+POST	/api/remove/siswa			controllers.ApplicationKelas.removeSiswa()
 
-POST 	/api/insert_user			controllers.ApplicationAccount.insert()
+POST	/api/insert/guru			controllers.ApplicationGuru.insert()
+POST 	/api/delete/guru			controllers.ApplicationGuru.delete()
+POST	/api/edit/guru				controllers.ApplicationGuru.edit()
+POST 	/api/list/guru 				controllers.ApplicationGuru.list()
+
+POST	/api/insert/mata_pelajaran	controllers.ApplicationMataPelajaran.insert()
+POST	/api/delete/mata_pelajaran 	controllers.ApplicationMataPelajaran.delete()
+POST	/api/edit/mata_pelajaran 	controllers.ApplicationMataPelajaran.edit()
+POST	/api/list/mata_pelajaran 	controllers.ApplicationMataPelajaran.list()
+
+POST 	/api/insert/user			controllers.ApplicationAccount.insert()
 
 POST	/api/login					controllers.SecurityController.login()
 POST	/api/logout 				controllers.SecurityController.logout()

@@ -6,7 +6,7 @@ import com.avaje.ebean.Ebean;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import fahmi.lib.CrudHandler;
-import fahmi.lib.FormErrorHandler;
+import fahmi.lib.FormHandler;
 import fahmi.lib.JsonHandler;
 import models.Kelas;
 import models.Siswa;
@@ -18,7 +18,7 @@ import play.*;
 
 public class ApplicationKelas extends Controller {
 	public static Form<Kelas> frmKelas = Form.form(Kelas.class);
-	public static CrudHandler<Kelas> crudHandler = new CrudHandler<Kelas>();
+	public static CrudHandler<Kelas> crudHandler = new CrudHandler<Kelas>(true);
 
 	public static Result insert() {
 		return crudHandler.create(frmKelas.bindFromRequest());
@@ -34,7 +34,7 @@ public class ApplicationKelas extends Controller {
 	}
 
 	public static Result list() {
-		return crudHandler.read(Kelas.finder);
+		return crudHandler.read(frmKelas.bindFromRequest(), Kelas.finder);
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class ApplicationKelas extends Controller {
 	 */
 	public static Result addSiswa() {
 		Form<Kelas> frmKelas = Form.form(Kelas.class).bindFromRequest();
-		FormErrorHandler<Kelas, Siswa> formErrorHandler = new FormErrorHandler<Kelas, Siswa>(
+		FormHandler<Kelas, Siswa> formErrorHandler = new FormHandler<Kelas, Siswa>(
 				Kelas.finder, Siswa.finder) {
 
 			@Override

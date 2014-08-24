@@ -18,28 +18,27 @@ import play.libs.Json;
 import play.mvc.*;
 import views.html.index;
 
-public class Application extends Controller {
+public class ApplicationSiswa extends Controller {
 	
 	public static Form<Siswa> frmSiswa = Form.form(Siswa.class);
-	public static CrudHandler<Siswa> crudHandler = new CrudHandler<Siswa>();
+	public static CrudHandler<Siswa> crudHandler = new CrudHandler<Siswa>(true);
 	
     public static Result index() {
         return ok(index.render("Your new application is ready."));
     }
     
     public static Result insert(){
-    	return crudHandler.create(frmSiswa.bindFromRequest());
+    	return crudHandler.create(frmSiswa.bindFromRequest());	
     }
     
     public static Result list(){
-    	return crudHandler.read(Siswa.finder);
+    	return crudHandler.read(frmSiswa.bindFromRequest(), Siswa.finder);
     }
     
     public static Result edit(){
     	return crudHandler.update(frmSiswa.bindFromRequest());
     }
     public static Result delete(){
-    	
     	return crudHandler.delete(frmSiswa.bindFromRequest(), "nim", Siswa.finder);
     }
 }

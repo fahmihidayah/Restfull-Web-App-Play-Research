@@ -15,7 +15,11 @@ import play.mvc.Result;
 public class SecurityController extends Controller{
 	public final static String AUTH_TOKEN_HEADER = "X-AUTH-TOKEN";
     public static final String AUTH_TOKEN = "authToken";
-    
+    /**
+     * never used
+     * @return
+     */
+    @Deprecated
     public static User getUser(){
     	return (User) Http.Context.current().args.get("user");
     }
@@ -51,6 +55,9 @@ public class SecurityController extends Controller{
     	}
     	
     	User user = User.findByAuthToken(authToken);
+    	if(user == null){
+    		return badRequest(JsonHandler.getSuitableResponse("auth not found", false));
+    	}
     	user.deleteAuthToken();
     	return ok(JsonHandler.getSuitableResponse("log out", true));
     }

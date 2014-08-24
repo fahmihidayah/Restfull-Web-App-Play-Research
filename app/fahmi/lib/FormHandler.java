@@ -10,11 +10,11 @@ import play.mvc.Result;
 
 import com.avaje.ebean.Ebean;
 
-public abstract class FormErrorHandler<O, I>{
+public abstract class FormHandler<O, I>{
 	private Finder modelOwner;
 	private Finder modelInverseOwner;
 	
-	public FormErrorHandler(Finder modelOwner, Finder modelInverseOwner) {
+	public FormHandler(Finder modelOwner, Finder modelInverseOwner) {
 		super();
 		this.modelOwner = modelOwner;
 		this.modelInverseOwner = modelInverseOwner;

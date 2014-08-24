@@ -16,7 +16,7 @@ import play.mvc.Result;
 import play.*;
 public class ApplicationGuru extends Controller{
 	public static Form<Guru> frmGuru = Form.form(Guru.class);
-	public static CrudHandler<Guru> crudHandler = new CrudHandler<Guru>();
+	public static CrudHandler<Guru> crudHandler = new CrudHandler<Guru>(true);
 	public static Result insert(){
 		return crudHandler.create(frmGuru.bindFromRequest());
 	}
@@ -30,7 +30,7 @@ public class ApplicationGuru extends Controller{
 	}
 	
 	public static Result list(){
-		return crudHandler.read(Guru.finder);
+		return crudHandler.read(frmGuru.bindFromRequest(), Guru.finder);
 	}
 
 }

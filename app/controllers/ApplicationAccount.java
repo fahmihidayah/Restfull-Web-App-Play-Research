@@ -30,7 +30,7 @@ public class ApplicationAccount extends Controller{
 	}
 	
 	public static Result list(){
-		return crudHandler.read(User.finder);
+		return crudHandler.read(frmAccount.bindFromRequest(), User.finder);
 	}
 	
 	public static Result addAccountToGuru(){
