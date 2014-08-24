@@ -1,6 +1,9 @@
 package fahmi.lib;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -16,9 +19,11 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 public class CrudHandler<T extends Model> {
+	public static String ERROR = "error";
 	public static String AUTH_NOT_FOUND = "require auth key";
 	public static String USER_NOT_FOUND = "You're not login yet";
 	public static String SUCCESS = "OK";
+	public static String AUTH_KEY = "auth_key";
 	
 	public boolean checkAuth = false;
 	
@@ -37,7 +42,7 @@ public class CrudHandler<T extends Model> {
 		if(checkAuth){
 			String authMessage = findAuth(form);
 			if(!authMessage.equals(SUCCESS)){
-				return Controller.badRequest(authMessage);
+				return Controller.badRequest(JsonHandler.getSuitableResponse(authMessage, false));
 			}
 		}
     	if(form.hasErrors()){
@@ -65,7 +70,7 @@ public class CrudHandler<T extends Model> {
 		if(checkAuth){
 			String authMessage = findAuth(form);
 			if(!authMessage.equals(SUCCESS)){
-				return Controller.badRequest(authMessage);
+				return Controller.badRequest(JsonHandler.getSuitableResponse(authMessage, false));
 			}
 		}
 		if(form.hasErrors()){
@@ -81,7 +86,7 @@ public class CrudHandler<T extends Model> {
 		if(checkAuth){
 			String authMessage = findAuth(form);
 			if(!authMessage.equals(SUCCESS)){
-				return Controller.badRequest(authMessage);
+				return Controller.badRequest(JsonHandler.getSuitableResponse(authMessage, false));
 			}
 		}
 		System.out.print(form.data());
@@ -99,7 +104,7 @@ public class CrudHandler<T extends Model> {
 	}
 	
 	public String findAuth(Form form){
-		String auth_key = (String) form.data().get("auth_key");
+		String auth_key = (String) form.data().get(AUTH_KEY);
 		if(auth_key == null) {
 			return AUTH_NOT_FOUND;
 		}
@@ -110,10 +115,21 @@ public class CrudHandler<T extends Model> {
 		return SUCCESS;
 	}
 	
+	public Map findKey(Form form, String [] listKey){
+		HashMap<String, Object> map = new HashMap<>();
+		for (String string : listKey) {
+			String key = (String) form.data().get(string);
+			if(key == null){
+				map.put(ERROR, "require " + key);
+				break;
+			}
+			map.put(string, key);
+		}
+		return map;
+	}
+	
 	public void setCheckAuth(boolean checkAuth) {
 		this.checkAuth = checkAuth;
 	}
-	
-	
 	
 }

@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import com.avaje.ebean.Ebean;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -37,49 +38,65 @@ public class ApplicationKelas extends Controller {
 		return crudHandler.read(frmKelas.bindFromRequest(), Kelas.finder);
 	}
 
+	// public static Result addSiswa(){
+	// Form<Kelas> frmKelasBnd = frmKelas.bindFromRequest();
+	// String [] key = {"idKelas","nim"};
+	// Map<String, Object> errorMessage = crudHandler.findKey(frmKelasBnd, key);
+	// if(errorMessage.get(crudHandler.ERROR) != null){
+	// return
+	// badRequest(JsonHandler.getSuitableResponse(errorMessage.get(crudHandler.ERROR),
+	// false));
+	// }
+	// Siswa siswa =
+	//
+	// }
+
 	/**
 	 * FormErrorHandler still in research
+	 * 
 	 * @return
 	 */
+	// public static Result addSiswa() {
+	// Form<Kelas> frmKelas = Form.form(Kelas.class).bindFromRequest();
+	// FormHandler<Kelas, Siswa> formErrorHandler = new FormHandler<Kelas,
+	// Siswa>(
+	// Kelas.finder, Siswa.finder) {
+	//
+	// @Override
+	// public String execute(Kelas owner, Siswa inverseOwner) {
+	// inverseOwner.kelas = owner;
+	// Ebean.save(inverseOwner);
+	// owner.listSiswa.add(inverseOwner);
+	// Ebean.save(owner);
+	// return "success add siswa to kelas";
+	// }
+	// };
+	// return formErrorHandler.checkAndExecute(frmKelas, "idKelas", "nim");
+	// }
+
 	public static Result addSiswa() {
 		Form<Kelas> frmKelas = Form.form(Kelas.class).bindFromRequest();
-		FormHandler<Kelas, Siswa> formErrorHandler = new FormHandler<Kelas, Siswa>(
-				Kelas.finder, Siswa.finder) {
-
-			@Override
-			public String execute(Kelas owner, Siswa inverseOwner) {
-				inverseOwner.kelas = owner;
-				Ebean.save(inverseOwner);
-				owner.listSiswa.add(inverseOwner);
-				Ebean.save(owner);
-				return "success add siswa to kelas";
+		String idKelas = frmKelas.data().get("idKelas");
+		String nim = frmKelas.data().get("nim");
+		if (idKelas == null || nim == null) {
+			return badRequest(JsonHandler.getSuitableResponse("require data",
+					false));
+		} else {
+			Kelas kelas = Kelas.finder.byId(Long.parseLong(idKelas));
+			Siswa siswa = Siswa.finder.byId(nim);
+			if (kelas == null || siswa == null) {
+				return badRequest(JsonHandler.getSuitableResponse(
+						"data not found", false));
 			}
-		};
-		return formErrorHandler.checkAndExecute(frmKelas, "idKelas", "nim");
+			siswa.kelas = kelas;
+			Ebean.save(siswa);
+			kelas.listSiswa.add(siswa);
+			Ebean.save(kelas);
+			return ok(JsonHandler.getSuitableResponse("success insert siswa",
+					true));
+		}
 	}
 
-	// public static Result addSiswa(){
-	// Form<Kelas> frmKelas = Form.form(Kelas.class).bindFromRequest();
-	// String idKelas = frmKelas.data().get("idKelas");
-	// String nim = frmKelas.data().get("nim");
-	// if(idKelas == null || nim == null){
-	// return badRequest(JsonHandler.getSuitableResponse("require data",
-	// false));
-	// }
-	// else {
-	// Kelas kelas = Kelas.finder.byId(Long.parseLong(idKelas));
-	// Siswa siswa = Siswa.finder.byId(nim);
-	// if(kelas == null || siswa == null){
-	// return badRequest(JsonHandler.getSuitableResponse("data not found",
-	// false));
-	// }
-	// siswa.kelas = kelas;
-	// Ebean.save(siswa);
-	// kelas.listSiswa.add(siswa);
-	// Ebean.save(kelas);
-	// return ok(JsonHandler.getSuitableResponse("success insert siswa", true));
-	// }
-	// }
 	public static Result removeSiswa() {
 		Form<Kelas> frmKelas = Form.form(Kelas.class).bindFromRequest();
 		String idKelas = frmKelas.data().get("idKelas");

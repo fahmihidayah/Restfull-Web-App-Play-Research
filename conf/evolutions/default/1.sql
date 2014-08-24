@@ -3,6 +3,16 @@
 
 # --- !Ups
 
+create table guru (
+  nik                       varchar(255) not null,
+  name                      varchar(255),
+  address                   varchar(255),
+  phone                     varchar(255),
+  email                     varchar(255),
+  account_id                bigint,
+  constraint pk_guru primary key (nik))
+;
+
 create table kelas (
   id_kelas                  bigint not null,
   nama_kelas                varchar(255),
@@ -27,20 +37,26 @@ create table user (
   constraint pk_user primary key (id))
 ;
 
+create sequence guru_seq;
+
 create sequence kelas_seq;
 
 create sequence siswa_seq;
 
 create sequence user_seq;
 
-alter table siswa add constraint fk_siswa_kelas_1 foreign key (kelas_id_kelas) references kelas (id_kelas) on delete restrict on update restrict;
-create index ix_siswa_kelas_1 on siswa (kelas_id_kelas);
+alter table guru add constraint fk_guru_account_1 foreign key (account_id) references user (id) on delete restrict on update restrict;
+create index ix_guru_account_1 on guru (account_id);
+alter table siswa add constraint fk_siswa_kelas_2 foreign key (kelas_id_kelas) references kelas (id_kelas) on delete restrict on update restrict;
+create index ix_siswa_kelas_2 on siswa (kelas_id_kelas);
 
 
 
 # --- !Downs
 
 SET REFERENTIAL_INTEGRITY FALSE;
+
+drop table if exists guru;
 
 drop table if exists kelas;
 
@@ -49,6 +65,8 @@ drop table if exists siswa;
 drop table if exists user;
 
 SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists guru_seq;
 
 drop sequence if exists kelas_seq;
 
