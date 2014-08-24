@@ -1,0 +1,24 @@
+pertanyaan :
+	bagaimana seharusnya membuat api yang baik?
+	kasus :
+	guru dan user adalah 2 kelas dengan relasi one to one unidirectional guru sebagai owner class dan user sebagai inverse owner class
+	relasinya adalah guru memiliki user (has a)
+
+	bagaimana membuat apinya untuk kasus insert data
+
+	cara solve 1 :
+		kita buat 3 api berbeda. dengan harapan modularitasnya terjaga.
+		api adalah sbb :
+			- api insert guru
+			- api insert user
+			- api connect user ke guru
+		mekanisme reqest api
+			- sekali insert akan terjadi 3 kali request api.
+		kelebuihan lebih modular.
+	cara solve 2 :
+		kita buat 1 api saja.
+		api adalah sbb :
+			- insert api guru dan user sekalian.
+		mekanisme request api 
+			- sekali insert akan terjadi 1 kali request api.
+		modularitas kuran
