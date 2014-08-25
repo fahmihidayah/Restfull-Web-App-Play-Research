@@ -8,7 +8,7 @@ create table absensi (
   date                      timestamp not null,
   hadir                     boolean not null,
   GURU_NIK                  varchar(255),
-  MATAPELAJARAN_ID_MATAPELAJARAN bigint,
+  ID_MATAPELAJARAN          bigint,
   SISWA_NIM                 varchar(255),
   KETERANGAN                varchar(255),
   constraint pk_absensi primary key (id_absensi))
@@ -68,8 +68,8 @@ create sequence user_seq;
 
 alter table absensi add constraint fk_absensi_guru_1 foreign key (GURU_NIK) references guru (nik) on delete restrict on update restrict;
 create index ix_absensi_guru_1 on absensi (GURU_NIK);
-alter table absensi add constraint fk_absensi_mataPelajaran_2 foreign key (MATAPELAJARAN_ID_MATAPELAJARAN) references mata_pelajaran (id_mata_pelajaran) on delete restrict on update restrict;
-create index ix_absensi_mataPelajaran_2 on absensi (MATAPELAJARAN_ID_MATAPELAJARAN);
+alter table absensi add constraint fk_absensi_mataPelajaran_2 foreign key (ID_MATAPELAJARAN) references mata_pelajaran (id_mata_pelajaran) on delete restrict on update restrict;
+create index ix_absensi_mataPelajaran_2 on absensi (ID_MATAPELAJARAN);
 alter table absensi add constraint fk_absensi_siswa_3 foreign key (SISWA_NIM) references siswa (nim) on delete restrict on update restrict;
 create index ix_absensi_siswa_3 on absensi (SISWA_NIM);
 alter table guru add constraint fk_guru_account_4 foreign key (account_id) references user (id) on delete restrict on update restrict;

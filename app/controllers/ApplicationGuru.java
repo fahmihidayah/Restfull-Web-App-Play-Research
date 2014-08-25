@@ -36,7 +36,7 @@ public class ApplicationGuru extends Controller{
 	
 	public static Result addGuruAccount(){
 		Form<Guru> frmGuruBnd = frmGuru.bindFromRequest();
-		String authMessage = crudHandler.findAuth(frmGuruBnd);
+		String authMessage = crudHandler.findAuth(frmGuruBnd.data());
 		if(!authMessage.equals(CrudHandler.SUCCESS)){
 			return badRequest(JsonHandler.getSuitableResponse("require auth key", false));
 		}

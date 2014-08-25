@@ -21,7 +21,7 @@ import play.mvc.Result;
 public class CrudHandler<T extends Model> implements Constants{
 	
 	
-	public boolean checkAuth = false;
+	private boolean checkAuth = false;
 	
 	public CrudHandler(boolean checkAuth) {
 		super();
@@ -36,7 +36,7 @@ public class CrudHandler<T extends Model> implements Constants{
 
 	public Result create(Form form){
 		if(checkAuth){
-			String authMessage = findAuth(form);
+			String authMessage = findAuth(form.data());
 			if(!authMessage.equals(SUCCESS)){
 				return Controller.badRequest(JsonHandler.getSuitableResponse(authMessage, false));
 			}
@@ -52,7 +52,7 @@ public class CrudHandler<T extends Model> implements Constants{
 	
 	public Result read(Form form, Finder finder){
 		if(checkAuth){
-			String authMessage = findAuth(form);
+			String authMessage = findAuth(form.data());
 			if(!authMessage.equals(SUCCESS)){
 				return Controller.badRequest(authMessage);
 			}
@@ -64,7 +64,7 @@ public class CrudHandler<T extends Model> implements Constants{
 	
 	public Result update(Form form){
 		if(checkAuth){
-			String authMessage = findAuth(form);
+			String authMessage = findAuth(form.data());
 			if(!authMessage.equals(SUCCESS)){
 				return Controller.badRequest(JsonHandler.getSuitableResponse(authMessage, false));
 			}
@@ -80,7 +80,7 @@ public class CrudHandler<T extends Model> implements Constants{
 	
 	public Result delete(Form form, String id, Finder finder){
 		if(checkAuth){
-			String authMessage = findAuth(form);
+			String authMessage = findAuth(form.data());
 			if(!authMessage.equals(SUCCESS)){
 				return Controller.badRequest(JsonHandler.getSuitableResponse(authMessage, false));
 			}
@@ -99,8 +99,8 @@ public class CrudHandler<T extends Model> implements Constants{
     	}
 	}
 	
-	public String findAuth(Form form){
-		String auth_key = (String) form.data().get(AUTH_KEY);
+	public String findAuth(Map map){
+		String auth_key = (String) map.get(AUTH_KEY);
 		if(auth_key == null) {
 			return AUTH_NOT_FOUND;
 		}
@@ -116,7 +116,7 @@ public class CrudHandler<T extends Model> implements Constants{
 		for (String string : listKey) {
 			String key = (String) form.data().get(string);
 			if(key == null){
-				map.put(ERROR, "require " + key);
+				map.put(ERROR, "require " + string);
 				break;
 			}
 			map.put(string, key);
