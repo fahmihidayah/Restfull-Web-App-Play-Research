@@ -48,4 +48,16 @@ public class Absensi extends Model{
 	public String keterangan;
     
     public static Finder<String, Absensi> finder = new Finder<String, Absensi>(String.class, Absensi.class);
+    
+    public void setGuruWithNik(String nik){
+    	guru = Guru.finder.byId(nik);
+    }
+    
+    public void setMataPelajaranWithId(Long idMataPelajaran){
+    	mataPelajaran = MataPelajaran.finder.byId(idMataPelajaran);
+    }
+    
+    public void setSiswaWithNim(String nim){
+    	siswa = Siswa.finder.byId(nim);
+    }
 }

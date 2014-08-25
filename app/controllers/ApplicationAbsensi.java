@@ -1,10 +1,14 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
+import com.avaje.ebean.Ebean;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import fahmi.lib.Constants;
 import fahmi.lib.CrudHandler;
@@ -70,18 +74,34 @@ public class ApplicationAbsensi extends Controller implements Constants{
 			return badRequest(JsonHandler.getSuitableResponse(map.get(ERROR), false));
 		}
 		String data_absensi = (String) map.get("data_absensi");
-		ArrayList<DataAbsensi> listDataAbsensi = new Gson().fromJson(data_absensi, ArrayList.class);
+//		TypeToken<DataAbsensi> listOfTestObject = new TypeToken<List<DataAbsensi>>(){}.getType();
+		List<DataAbsensi> listDataAbsensi = new Gson().fromJson(data_absensi,   new TypeToken<List<DataAbsensi>>(){}.getType());
 		System.out.println(listDataAbsensi.size());
 //		Gson sd ;
-		
-		return TODO;
+//		ArrayList<Absensi> listAbsensi = new ArrayList<>();
+		for (DataAbsensi dataAbsensi : listDataAbsensi) {
+			dataAbsensi.getAbsensi().save();
+//			listAbsensi.add(dataAbsensi.getAbsensi());
+		}
+		return ok(JsonHandler.getSuitableResponse("success insert absensi", true));		
 	}
 	
 	public static class DataAbsensi {
 		public Boolean hadir;
 		public String nik;
-		public String idMataPelajaran;
+		public Long idMataPelajaran;
 		public String nim;
 		public String keterangan;
+		
+		public Absensi getAbsensi(){
+			Absensi absensi = new Absensi();
+			absensi.hadir = hadir;
+			absensi.setGuruWithNik(nik);
+			absensi.setMataPelajaranWithId(idMataPelajaran);
+			absensi.setSiswaWithNim(nim);
+			absensi.keterangan = keterangan;
+			absensi.date = new Date();
+			return absensi;
+		}
 	}
 }
