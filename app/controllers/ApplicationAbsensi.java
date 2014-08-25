@@ -1,7 +1,10 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
+
+import com.google.gson.Gson;
 
 import fahmi.lib.Constants;
 import fahmi.lib.CrudHandler;
@@ -11,6 +14,7 @@ import models.Guru;
 import models.MataPelajaran;
 import models.Siswa;
 import play.data.Form;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -57,8 +61,27 @@ public class ApplicationAbsensi extends Controller implements Constants{
 		absensi.save();
 		return ok(JsonHandler.getSuitableResponse("success insert absensi", true));
 	}
-
+	
 	public static Result bulkAbsenSiswa(){
+		Form<Absensi> frmAbsensiBnd = frmAbsensi.bindFromRequest();
+		String [] listKey = {"auth_key", "data_absensi"};
+		Map<String, Object> map = crudHandler.findKey(frmAbsensiBnd, listKey);
+		if(map.containsKey(ERROR)){
+			return badRequest(JsonHandler.getSuitableResponse(map.get(ERROR), false));
+		}
+		String data_absensi = (String) map.get("data_absensi");
+		ArrayList<DataAbsensi> listDataAbsensi = new Gson().fromJson(data_absensi, ArrayList.class);
+		System.out.println(listDataAbsensi.size());
+//		Gson sd ;
+		
 		return TODO;
+	}
+	
+	public static class DataAbsensi {
+		public Boolean hadir;
+		public String nik;
+		public String idMataPelajaran;
+		public String nim;
+		public String keterangan;
 	}
 }
