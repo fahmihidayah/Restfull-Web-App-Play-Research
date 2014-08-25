@@ -18,12 +18,8 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
-public class CrudHandler<T extends Model> {
-	public static String ERROR = "error";
-	public static String AUTH_NOT_FOUND = "require auth key";
-	public static String USER_NOT_FOUND = "You're not login yet";
-	public static String SUCCESS = "OK";
-	public static String AUTH_KEY = "auth_key";
+public class CrudHandler<T extends Model> implements Constants{
+	
 	
 	public boolean checkAuth = false;
 	

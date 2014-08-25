@@ -23,11 +23,9 @@ public class Absensi extends Model{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long idAbsensi;
 	
-	@Required
     @Column(nullable = false)
     public Date date;
-    
-	@Required
+
     @Column(nullable = false)
     public Boolean hadir;
 
@@ -36,13 +34,11 @@ public class Absensi extends Model{
     @JoinColumn(name = "GURU_NIK")
     public Guru guru;
     
-	@Required
     @OneToOne(cascade = CascadeType.ALL)
     @Column(nullable = false)
-	@JoinColumn(name = "MATAPELAJARAN_ID_MATAPELAJARAN")
+	@JoinColumn(name = "ID_MATAPELAJARAN")
     public MataPelajaran mataPelajaran;
     
-	@Required
     @OneToOne(cascade = CascadeType.ALL)
     @Column(nullable = false)
 	@JoinColumn(name = "SISWA_NIM")
