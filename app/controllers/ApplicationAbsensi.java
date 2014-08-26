@@ -78,11 +78,12 @@ public class ApplicationAbsensi extends Controller implements Constants{
 		List<DataAbsensi> listDataAbsensi = new Gson().fromJson(data_absensi,   new TypeToken<List<DataAbsensi>>(){}.getType());
 		System.out.println(listDataAbsensi.size());
 //		Gson sd ;
-//		ArrayList<Absensi> listAbsensi = new ArrayList<>();
+		ArrayList<Absensi> listAbsensi = new ArrayList<>();
 		for (DataAbsensi dataAbsensi : listDataAbsensi) {
-			dataAbsensi.getAbsensi().save();
-//			listAbsensi.add(dataAbsensi.getAbsensi());
+//			dataAbsensi.getAbsensi().save();
+			listAbsensi.add(dataAbsensi.getAbsensi());
 		}
+		Ebean.save(listAbsensi);
 		return ok(JsonHandler.getSuitableResponse("success insert absensi", true));		
 	}
 	

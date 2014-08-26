@@ -9,7 +9,14 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import com.avaje.ebean.Ebean;
-
+/**
+ * deprecated api. To dificult to use.
+ * @author fahmi
+ *
+ * @param <O>
+ * @param <I>
+ */
+@Deprecated
 public abstract class FormHandler<O, I>{
 	private Finder modelOwner;
 	private Finder modelInverseOwner;
