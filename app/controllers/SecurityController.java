@@ -3,6 +3,7 @@ package controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import models.Auth;
 import models.User;
 import fahmi.lib.JsonHandler;
 import play.data.Form;
@@ -31,18 +32,20 @@ public class SecurityController extends Controller{
     	}
     	
     	Login login = formLogin.get();
-    	User user = User.findByEmailAddressAndPassword(login.userName, login.password);
+    	User user = Auth.findUser(login.userName, login.password);
     	if(user == null){
     		return badRequest(JsonHandler.getSuitableResponse("user not found", false));
     	}
-    	else if(user.authToken != null){
-    		return badRequest(JsonHandler.getSuitableResponse("user in used", false));
-    	}
+//    	else if(user.authToken != null){
+//    		return badRequest(JsonHandler.getSuitableResponse("user in used", false));
+//    	}
     	else {
-    		String authToken = user.createToken();
-    		response().setCookie(AUTH_TOKEN, authToken);
+    		Auth auth = new Auth();
+    		auth.createToken();
+    		auth.save();
+    		response().setCookie(AUTH_TOKEN, auth.authToken);
     		ObjectNode data = Json.newObject();
-    		data.put(AUTH_TOKEN, authToken);
+    		data.put(AUTH_TOKEN, auth.authToken);
     		return ok(JsonHandler.getSuitableResponse(data, true));
     	}
     }
@@ -54,11 +57,11 @@ public class SecurityController extends Controller{
     		return badRequest(JsonHandler.getSuitableResponse("data not found", false));
     	}
     	
-    	User user = User.findByAuthToken(authToken);
-    	if(user == null){
+    	Auth auth = Auth.findAuth(authToken);
+    	if(auth == null){
     		return badRequest(JsonHandler.getSuitableResponse("auth not found", false));
     	}
-    	user.deleteAuthToken();
+    	auth.delete();
     	return ok(JsonHandler.getSuitableResponse("log out", true));
     }
     

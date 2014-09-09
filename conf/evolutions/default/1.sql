@@ -14,6 +14,12 @@ create table absensi (
   constraint pk_absensi primary key (id_absensi))
 ;
 
+create table auth (
+  id_auth                   bigint not null,
+  auth_token                varchar(255),
+  constraint pk_auth primary key (id_auth))
+;
+
 create table guru (
   nik                       varchar(255) not null,
   name                      varchar(255),
@@ -46,7 +52,6 @@ create table siswa (
 
 create table user (
   id                        bigint not null,
-  auth_token                varchar(255),
   user_name                 varchar(256) not null,
   sha_password              varbinary(64) not null,
   password                  varchar(255),
@@ -55,6 +60,8 @@ create table user (
 ;
 
 create sequence absensi_seq;
+
+create sequence auth_seq;
 
 create sequence guru_seq;
 
@@ -85,6 +92,8 @@ SET REFERENTIAL_INTEGRITY FALSE;
 
 drop table if exists absensi;
 
+drop table if exists auth;
+
 drop table if exists guru;
 
 drop table if exists kelas;
@@ -98,6 +107,8 @@ drop table if exists user;
 SET REFERENTIAL_INTEGRITY TRUE;
 
 drop sequence if exists absensi_seq;
+
+drop sequence if exists auth_seq;
 
 drop sequence if exists guru_seq;
 

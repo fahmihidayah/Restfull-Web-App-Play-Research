@@ -8,6 +8,7 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import controllers.ApplicationSiswa;
+import models.Auth;
 import models.Siswa;
 import models.User;
 import play.api.libs.iteratee.Cont;
@@ -104,8 +105,8 @@ public class CrudHandler<T extends Model> implements Constants{
 		if(auth_key == null) {
 			return AUTH_NOT_FOUND;
 		}
-		User user = User.findByAuthToken(auth_key);
-		if(user == null){
+		Auth auth = Auth.findAuth(auth_key);
+		if(auth == null){
 			return USER_NOT_FOUND;
 		}
 		return SUCCESS;

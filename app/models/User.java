@@ -27,8 +27,6 @@ public class User extends Model {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long id;
 
-	public String authToken;
-
 	@Column(unique = true, length = 256, nullable = false)
 	public String userName;
 
@@ -68,17 +66,17 @@ public class User extends Model {
         shaPassword = getSha512(password);
     }
 
-	
-	public String createToken() {
-		authToken = UUID.randomUUID().toString();
-		save();
-		return authToken;
-	}
-
-	public void deleteAuthToken() {
-		authToken = null;
-		save();
-	}
+//	
+//	public String createToken() {
+//		authToken = UUID.randomUUID().toString();
+//		save();
+//		return authToken;
+//	}
+//
+//	public void deleteAuthToken() {
+//		authToken = null;
+//		save();
+//	}
 
 	public static byte[] getSha512(String value) {
 
@@ -92,22 +90,22 @@ public class User extends Model {
 		}
 	}
 	
-	public static User findByAuthToken(String authToken){
-		if(authToken == null){
-			return null;
-		}
-		try{
-			return finder.where().eq("authToken",authToken).findUnique();	
-		}
-		catch(Exception e){
-			return null;	
-		}
-	}
+//	public static User findByAuthToken(String authToken){
+//		if(authToken == null){
+//			return null;
+//		}
+//		try{
+//			return finder.where().eq("authToken",authToken).findUnique();	
+//		}
+//		catch(Exception e){
+//			return null;	
+//		}
+//	}
 	
-	public static User findByEmailAddressAndPassword(String userName, String password){
-		return finder.where().eq("userName", userName).eq("shaPassword", getSha512(password)).findUnique();
-	}
-	
+//	public static User findByEmailAddressAndPassword(String userName, String password){
+//		return finder.where().eq("userName", userName).eq("shaPassword", getSha512(password)).findUnique();
+//	}
+//	
 	public static User findByUserName(String userName){
 		return finder.where().eq("userName", userName).findUnique();
 	}
