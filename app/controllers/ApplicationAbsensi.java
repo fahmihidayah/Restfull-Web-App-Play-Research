@@ -27,6 +27,12 @@ public class ApplicationAbsensi extends Controller implements Constants{
 	public static Form<Absensi> frmAbsensi = Form.form(Absensi.class);
 	public static CrudHandler<Absensi> crudHandler = new CrudHandler<Absensi>();
 	
+	/**
+	 * pattern!!
+	 * - listKey
+	 * - Map = 
+	 * @return
+	 */
 	public static Result insertAbsenSiswa(){
 		Form<Absensi> frmAbsensiBnd = frmAbsensi.bindFromRequest();
 		String [] listKey = {"auth_key", "hadir", "nik", "idMataPelajaran", "nim", "keterangan"};
