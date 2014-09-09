@@ -28,5 +28,10 @@ public class Siswa extends Model {
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	public Kelas kelas;
+	
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.ALL)
+	public OrangTua orangTua;
+	
 	public static Finder<String, Siswa> finder = new Finder<String, Siswa>(String.class, Siswa.class);
 }

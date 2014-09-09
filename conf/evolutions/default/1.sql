@@ -42,11 +42,20 @@ create table mata_pelajaran (
   constraint pk_mata_pelajaran primary key (id_mata_pelajaran))
 ;
 
+create table orang_tua (
+  id_orang_tua              bigint not null,
+  name                      varchar(255) not null,
+  address                   varchar(255) not null,
+  phone_number              varchar(255) not null,
+  constraint pk_orang_tua primary key (id_orang_tua))
+;
+
 create table siswa (
   nim                       varchar(255) not null,
   name                      varchar(255),
   address                   varchar(255),
   kelas_id_kelas            bigint,
+  orang_tua_id_orang_tua    bigint,
   constraint pk_siswa primary key (nim))
 ;
 
@@ -69,6 +78,8 @@ create sequence kelas_seq;
 
 create sequence mata_pelajaran_seq;
 
+create sequence orang_tua_seq;
+
 create sequence siswa_seq;
 
 create sequence user_seq;
@@ -83,6 +94,8 @@ alter table guru add constraint fk_guru_account_4 foreign key (account_id) refer
 create index ix_guru_account_4 on guru (account_id);
 alter table siswa add constraint fk_siswa_kelas_5 foreign key (kelas_id_kelas) references kelas (id_kelas) on delete restrict on update restrict;
 create index ix_siswa_kelas_5 on siswa (kelas_id_kelas);
+alter table siswa add constraint fk_siswa_orangTua_6 foreign key (orang_tua_id_orang_tua) references orang_tua (id_orang_tua) on delete restrict on update restrict;
+create index ix_siswa_orangTua_6 on siswa (orang_tua_id_orang_tua);
 
 
 
@@ -100,6 +113,8 @@ drop table if exists kelas;
 
 drop table if exists mata_pelajaran;
 
+drop table if exists orang_tua;
+
 drop table if exists siswa;
 
 drop table if exists user;
@@ -115,6 +130,8 @@ drop sequence if exists guru_seq;
 drop sequence if exists kelas_seq;
 
 drop sequence if exists mata_pelajaran_seq;
+
+drop sequence if exists orang_tua_seq;
 
 drop sequence if exists siswa_seq;
 
