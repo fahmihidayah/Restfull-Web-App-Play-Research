@@ -18,9 +18,6 @@ public class Auth extends Model {
 	public Long idAuth;
 	@Column
 	public String authToken;
-//	@OneToOne(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "ID_USER")
-//	public User user;
 
 	public static Finder<Long,Auth> finder = new Finder<Long,Auth>(Long.class,
 			Auth.class);
