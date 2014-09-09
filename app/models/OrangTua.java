@@ -1,8 +1,13 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import play.db.ebean.Model;
 
@@ -16,6 +21,9 @@ public class OrangTua extends Model {
 	public String address;
 	@Column(nullable = false)
 	public String phoneNumber;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	public List<Siswa> listSiswa = new ArrayList<>();
 
 	public static Finder<Long, OrangTua> finder = new Finder<Long, OrangTua>(
 			Long.class, OrangTua.class);
